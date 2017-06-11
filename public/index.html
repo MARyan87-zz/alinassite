@@ -2,8 +2,12 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Chicle" rel="stylesheet">
   </head>
   <style>
+    * {
+      font-family: "Chicle";
+    }
     body {
       background-color: red;
     }
@@ -14,7 +18,19 @@
       min-width: 300px;
     }
     h1 {
-      color: red;
+       padding: 20px;
+       display: inline-block;
+       margin: 10px;
+       background: #ff0030;
+       color: #fff;
+       font-size: 21px;
+       font-weight: bold;
+       line-height: 1.3em;
+       border: 2px dashed #fff;
+       border-radius: 10px;
+       box-shadow: 0 0 0 4px #ff0030, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+       text-shadow: -1px -1px #aa3030;
+       font-weight: normal;
     }
     h4 {
       white-space: nowrap;
@@ -39,7 +55,9 @@
   </style>
   <body>
     <section class='header jumbotron'>
-      <h1 class='text-center'>Alina's Website!!!</h1>
+      <section class="text-center">
+      <h1 class='text-center'>Alina's Website</h1>
+    </section>
     </section>
     <section class="container">
     <div id="player"></div>

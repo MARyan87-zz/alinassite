@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <style>
+    body {
+      background-color: red;
+    }
+    .container {
+      background-color: white;
+    }
+    img {
+      min-width: 300px;
+    }
+    h1 {
+      color: red;
+    }
+    h4 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header {
+      background-image: url("elmo_excited.png");
+      background-repeat: no-repeat;
+      background-position: top right;
+      background-color: deepskyblue;
+    }
+    .video-item {
+      margin: 15px 0;
+    }
+    iframe {
+      margin-top: 25px;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+  <body>
+    <section class='header jumbotron'>
+      <h1 class='text-center'>Alina's Website!!!</h1>
+    </section>
+    <section class="container">
+    <div id="player"></div>
+    <section id="results"></section>
+  </section>
+    <script>
+      // AIzaSyC1TZjqVxH92M8f8eyAfGGSoKPjuN-L-7M
+      // https://www.googleapis.com/youtube/v3
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var videoIDArr = [];
+
+      $.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyC1TZjqVxH92M8f8eyAfGGSoKPjuN-L-7M&q=elmo&part=snippet&maxResults=50", function (data) {
+        data.items.forEach(function (item) {
+          var title = item.snippet.title,
+              img = item.snippet.thumbnails.default.url;
+
+          if (item.id.videoId) {
+            videoIDArr.push(item);
+            $("#results").append("<div data-id='" + item.id.videoId + "' class='col-sm-6 video-item'><h4 data-id='" + item.id.videoId + "'>" + title + "</h4><img data-id='" + item.id.videoId + "' src='" + img + "'/></div>");
+          }
+        });
+        console.log(videoIDArr);
+      });
+
+      // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: 'l5einDQ-Ttc',
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    // 5. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for six seconds and then stop.
+    var done = false;
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.PLAYING && !done) {
+        setTimeout(stopVideo, 6000);
+        done = true;
+      }
+    }
+    function stopVideo() {
+      player.stopVideo();
+    }
+
+    $(document).click(".video-item", function (e) {
+      console.log(e.target);
+      console.log("clicked: ", e.target.getAttribute("data-id"));
+      player.loadVideoById(e.target.getAttribute("data-id"));
+      window.scrollTo(0,0);
+    });
+    </script>
+  </body>
+</html>

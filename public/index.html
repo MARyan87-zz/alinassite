@@ -9,12 +9,12 @@
       font-family: "Chicle";
     }
     body {
-      background-color: red;
+      background: red;
     }
     .container {
       background-color: white;
     }
-    img {
+    .video-item img {
       min-width: 300px;
     }
     h1 {
@@ -32,16 +32,20 @@
        text-shadow: -1px -1px #aa3030;
        font-weight: normal;
     }
-    h4 {
+    h3 {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .header {
-      background-image: url("elmo_excited.png");
+      /*background-image: url("elmo_excited.png");
       background-repeat: no-repeat;
-      background-position: top right;
+      background-position: top right;*/
       background-color: deepskyblue;
+    }
+    .header img {
+      max-width: 200px;
+      margin: auto;
     }
     .video-item {
       margin: 15px 0;
@@ -55,8 +59,12 @@
   </style>
   <body>
     <section class='header jumbotron'>
-      <section class="text-center">
-      <h1 class='text-center'>Alina's Website</h1>
+      <section class="row">
+      <section class="col-xs-4"><img class="img-responsive" src="bigbird.png"/></section>
+      <section id="title" class="text-center col-xs-4">
+        <h1>Alina's Website</h1>
+      </section>
+      <section class="col-xs-4"><img class="img-responsive" src="elmo_excited.png"/></section>
     </section>
     </section>
     <section class="container">
@@ -76,9 +84,10 @@
 
           if (item.id.videoId) {
             videoIDArr.push(item);
-            $("#results").append("<div data-id='" + item.id.videoId + "' class='col-sm-6 video-item'><h4 data-id='" + item.id.videoId + "'>" + title + "</h4><img data-id='" + item.id.videoId + "' src='" + img + "'/></div>");
+            $("#results").append("<div data-id='" + item.id.videoId + "' class='col-sm-6 video-item'><h3 data-id='" + item.id.videoId + "'>" + title + "</h4><img data-id='" + item.id.videoId + "' src='" + img + "'/></div>");
           }
         });
+        $("#results").prepend("<div data-id='5CzqFgPP4_0' class='col-sm-6 video-item'><h3 data-id='5CzqFgPP4_0'>Sesame Street Pez How do you do</h4><img data-id='5CzqFgPP4_0' src='https://i.ytimg.com/vi/5CzqFgPP4_0/default.jpg'/></div>")
         console.log(videoIDArr);
       });
 
@@ -96,7 +105,7 @@
       player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: 'l5einDQ-Ttc',
+        videoId: '5CzqFgPP4_0',
         events: {
           'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange
